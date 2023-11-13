@@ -1,3 +1,9 @@
+[dev]
+  targetPort = 5174
+
 [build]
   command = "npm run build"
   publish = "build"
+
+[functions]
+  node_bundler = "esbuild"
