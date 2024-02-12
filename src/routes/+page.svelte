@@ -12,7 +12,8 @@
       },
     });
 
-    total = await response.json();
+    const result = await response.json();
+    total = result.sum;
   }
 </script>
 

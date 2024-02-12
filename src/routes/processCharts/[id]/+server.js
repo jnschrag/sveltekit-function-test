@@ -1,24 +1,27 @@
 import { json } from "@sveltejs/kit";
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ params, request }) {
-  console.log(params);
-
+export async function POST({ params, request, fetch }) {
   const { a, b } = await request.json();
 
-  console.log("data", a, b);
+  // Call the background function
+  const response = await fetch(
+    "http://localhost:8888/.netlify/functions/publish-chart-background",
+    {
+      method: "POST",
+      body: JSON.stringify({ a, b }),
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
 
-  const response = await fetch("/.netlify/functions/hello-background", {
-    method: "POST",
-    body: JSON.stringify({ a, b }),
-    headers: {
-      "content-type": "application/json",
-    },
-  });
+  const result = await response;
 
-  const result = await response.json();
-
-  console.log(result);
-
-  return json(a + b);
+  return new Response(
+    JSON.stringify({
+      message: "Success.",
+      sum: a + b,
+    })
+  );
 }

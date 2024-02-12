@@ -1,5 +1,6 @@
 [dev]
-  targetPort = 5174
+  targetPort = 5173
+  functionsPort = 8888
 
 [build]
   command = "npm run build"
@@ -7,3 +8,4 @@
 
 [functions]
   node_bundler = "esbuild"
+  directory = "netlify/functions"
