@@ -9,3 +9,9 @@
 [functions]
   node_bundler = "esbuild"
   directory = "netlify/functions"
+  included_files = ['chart_template/**'] # If included while running locally, causes the sym link issue
+
+
+# This is the workaround I'm currently using. It adds the `included_files` property only in production
+#[[plugins]]
+#  package = "/plugins/netlify-plugin-functions"

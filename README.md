@@ -1,18 +1,21 @@
-# create-svelte
+# sveltekit-function-test
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Test repo for Sveltekit & Netlify background functions. Demo of issue [#6106](https://github.com/netlify/cli/issues/6106)
 
-## Creating a project
+## Issue summary
 
-If you're seeing this, you've probably already done this step. Congrats!
+If you have `included_files = ['chart_template/**']` when running the project locally, the Netlify functions server fails to build the function due to a symlink error.
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+◈ Failed to load function publish-chart-background: ENOENT: no such file or directory, symlink '../acorn/bin/acorn' -> '/Users/jacqueschrag/Desktop/sveltekit-function-test/.netlify/functions-serve/publish-chart-background/chart_template/node_modules/.bin/acorn'
+◈ Failed to load function sveltekit-render: ENOENT: no such file or directory, symlink '../d3-dsv/bin/dsv2json.js' -> '/Users/jacqueschrag/Desktop/sveltekit-function-test/.netlify/functions-serve/sveltekit-render/chart_template/node_modules/.bin/tsv2json'
 ```
+
+This error goes away if you remove the `included_files` line, but this is necessary for a successful production deploy.
+
+### Workaround
+
+I've also included my workaround, which is adding the included files via a plugin.
 
 ## Developing
 
@@ -25,13 +28,19 @@ npm run dev
 npm run dev -- --open
 ```
 
+In a separate terminal, start the Netlify functions server.
+
+````bash
+netlify functions:serve
+```
+
 ## Building
 
 To create a production version of your app:
 
 ```bash
 npm run build
-```
+````
 
 You can preview the production build with `npm run preview`.
 
