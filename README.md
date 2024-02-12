@@ -4,7 +4,7 @@ Test repo for Sveltekit & Netlify background functions. Demo of issue [#6106](ht
 
 ## Issue summary
 
-If you have `included_files = ['chart_template/**']` when running the project locally, the Netlify functions server fails to build the function due to a symlink error.
+If you have `included_files = ['chart_template/**']` in your `netlify.toml` when running the project locally, the Netlify functions server fails to build the function due to a symlink error.
 
 ```bash
 ◈ Failed to load function publish-chart-background: ENOENT: no such file or directory, symlink '../acorn/bin/acorn' -> '/Users/jacqueschrag/Desktop/sveltekit-function-test/.netlify/functions-serve/publish-chart-background/chart_template/node_modules/.bin/acorn'
